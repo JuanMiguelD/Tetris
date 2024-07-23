@@ -1,0 +1,97 @@
+/* Estilos generales para el tema oscuro */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Estilos para el canvas */
+canvas {
+    width: 100;
+    height: 900;
+    background-color: #4e4e4e;
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    border-radius: 8px;
+}
+
+
+h1 {
+    color: #00E676; /* Verde claro */
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2rem;
+}
+
+
+.button-container {
+    display:list-item;
+    gap: 20px;
+}
+
+.circular-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.circular-button.left-arrow::before,
+.circular-button.right-arrow::before,
+.circular-button.down-arrow::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+}
+
+.circular-button.left-arrow {
+    background-color: #4CAF50; /* Verde */
+}
+
+.circular-button.left-arrow::before {
+    border-width: 10px 15px 10px 0;
+    border-color: transparent #ffffff transparent transparent;
+    left: 18px;
+}
+
+.circular-button.right-arrow {
+    background-color: #a9a9a9; /* Gris */
+}
+
+.circular-button.right-arrow::before {
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #ffffff;
+    right: 18px;
+}
+
+.circular-button.down-arrow {
+    background-color: #4CAF50; /* Verde */
+}
+
+.circular-button.down-arrow::before {
+    border-width: 0 10px 15px 10px;
+    border-color: transparent transparent #ffffff transparent;
+    top: 18px;
+}
+
+.circular-button:hover {
+    background-color: #333333; /* Cambiar a gris oscuro al pasar el ratón */
+}
+
+
