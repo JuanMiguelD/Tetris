@@ -3,12 +3,17 @@ const columnasTablero = 14;
 
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
+let intervalo
+let pausa = false;
 
 console.log(tablero);
 
 const filas = tablero.length;
 const columnas = tablero[0].length;
 const tamanoCelda = 20; 
+
+const musicaFondo = document.getElementById('musicaFondo');
+const musicaperdedor = document.getElementById("fin");
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -183,6 +188,9 @@ function moverPieza(dx, dy) {
         eliminarFilasCompletas();
         piezaActual = obtenerPiezaAleatoria();
         if (verificarColision(piezaActual.x, piezaActual.y, piezaActual.forma)) {
+            musicaperdedor.volume = 1
+            musicaFondo.pause();
+            musicaperdedor.play();
             document.getElementById('mensaje').style.display = 'block';
             setTimeout(() => {
                 window.location.reload();
@@ -241,7 +249,7 @@ document.addEventListener('keydown', (event) => {
 function comenzar(){
 
     document.getElementById('iniciar').style.display = 'none';
-    const musicaFondo = document.getElementById('musicaFondo');
+    document.getElementById("pause").style.display = "inline";
     
     musicaFondo.loop = true; // Repetir música en bucle
     musicaFondo.volume = 0.5; // Ajusta el volumen (0.0 a 1.0)
@@ -253,8 +261,34 @@ function comenzar(){
     dibujarPieza();
 
     // Animación automática de la pieza
-    setInterval(() => {
+    intervalo = setInterval(() => {
         moverPieza(0, 1); // Mover hacia abajo automáticamente
     }, 500);
 
+}
+
+function play(){
+    if(pausa){
+
+        musicaFondo.play(); 
+        intervalo = setInterval(() => {
+                moverPieza(0, 1); // reanuda la animación
+            }, 500); 
+        document.getElementById("pause").style.display = "inline";
+        document.getElementById("play").style.display = "none";
+        
+        pausa = !pausa
+
+    }
+    else{
+
+        musicaFondo.pause(); // Pausa la música
+        clearInterval(intervalo); // Detiene la animación
+        document.getElementById("pause").style.display = "none";
+        document.getElementById("play").style.display = "inline";
+
+        pausa = !pausa
+
+    }
+    
 }

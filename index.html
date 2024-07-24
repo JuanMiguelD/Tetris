@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+
+    <div>
+        <button id="pause" onclick="play()">
+            <img src="pause.png" width="50px" height="50px">
+        </button>
+        <button id="play" onclick="play()">
+            <img src="play.png" width="50px" height="50px">
+        </button>
+    </div>
+
+
     <div>
         <h1>Tetris</h1>
         <canvas id="myCanvas">
@@ -22,10 +33,9 @@
         <button id="iniciar" onclick="comenzar()">Comenzar</button>
     </div>
 
+    <audio src="Song.mp3" id="musicaFondo" preload="auto"></audio>
+    <audio src="gameOver.mp3" id="fin" preload="auto"></audio>
 
     <script src="prueba.js"></script>
-
-    <audio src="Song.mp3" id="musicaFondo" preload="auto"></audio>
-    
 </body>
 </html>
