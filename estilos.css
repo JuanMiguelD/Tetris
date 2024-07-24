@@ -103,3 +103,16 @@ h1 {
 button {
     background-color:#00E676;
 }
+
+.volume {
+    margin-top: 20px; /* Añade un margen superior para separar los elementos */
+}
+
+.color {
+    margin-top: 20px; /* Añade un margen superior para separar los elementos */
+}
+
+input[type="range"], input[type="color"] {
+    width: 100%; /* Ajusta el ancho del deslizador y del selector de color */
+}
+

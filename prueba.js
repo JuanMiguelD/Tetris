@@ -3,7 +3,6 @@ const columnasTablero = 14;
 
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
-
 console.log(tablero);
 
 const filas = tablero.length;
@@ -12,7 +11,6 @@ const tamanoCelda = 20;
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
-
 
 canvas.width = columnas * tamanoCelda;
 canvas.height = filas * tamanoCelda;
@@ -23,7 +21,7 @@ function dibujarTablero() {
         for (let columna = 0; columna < columnas; columna++) {
             if (tablero[fila][columna] === 1) {
                 
-                ctx.fillStyle = '#f54021'; 
+                ctx.fillStyle = colorBloques; 
                 ctx.fillRect(columna * tamanoCelda, fila * tamanoCelda, tamanoCelda, tamanoCelda);
             } else {
                 
@@ -114,7 +112,6 @@ function obtenerPiezaAleatoria() {
 }
 
 let piezaActual = obtenerPiezaAleatoria();
-
 
 function dibujarPieza() {
 
@@ -244,7 +241,7 @@ function comenzar(){
     const musicaFondo = document.getElementById('musicaFondo');
     
     musicaFondo.loop = true; // Repetir música en bucle
-    musicaFondo.volume = 0.5; // Ajusta el volumen (0.0 a 1.0)
+    musicaFondo.volume = document.getElementById('volumen').value; // Ajusta el volumen (0.0 a 1.0)
     musicaFondo.play(); // Reproduce la música
     
 
@@ -257,4 +254,23 @@ function comenzar(){
         moverPieza(0, 1); // Mover hacia abajo automáticamente
     }, 500);
 
+}
+
+document.getElementById('volumen').addEventListener('input', function() {
+    ajustarVolumen(this.value);
+});
+
+document.getElementById('colorSelector').addEventListener('change', function() {
+    cambiarColorBloques(this.value);
+});
+
+function cambiarColorBloques(color) {
+    colorBloques = color;
+    dibujarTablero();
+    dibujarPieza();
+}
+
+function ajustarVolumen(volumen) {
+    const musicaFondo = document.getElementById('musicaFondo');
+    musicaFondo.volume = volumen;
 }
