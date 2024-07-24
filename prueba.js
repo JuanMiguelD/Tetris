@@ -230,7 +230,7 @@ function eliminarFilasCompletas() {
 
 // Eventos de teclado
 document.addEventListener('keydown', (event) => {
-    if(pausa){
+    if(!pausa){
         switch (event.key) {
             case 'ArrowLeft':
                 moverPieza(-1, 0); // Mover a la izquierda
