@@ -4,7 +4,7 @@ const columnasTablero = 14;
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
 let intervalo
-let pausa = false;
+let pausa = true;
 
 console.log(tablero);
 
@@ -230,48 +230,56 @@ function eliminarFilasCompletas() {
 
 // Eventos de teclado
 document.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'ArrowLeft':
-            moverPieza(-1, 0); // Mover a la izquierda
-            break;
-        case 'ArrowRight':
-            moverPieza(1, 0); // Mover a la derecha
-            break;
-        case 'ArrowUp':
-            rotarPieza(); // Rotar la pieza
-            break;
-        case 'ArrowDown':
-            moverPieza(0, 1); // Mover hacia abajo
-            break;
+    if(!pausa){
+        switch (event.key) {
+            case 'ArrowLeft':
+                moverPieza(-1, 0); // Mover a la izquierda
+                break;
+            case 'ArrowRight':
+                moverPieza(1, 0); // Mover a la derecha
+                break;
+            case 'ArrowUp':
+                rotarPieza(); // Rotar la pieza
+                break;
+            case 'ArrowDown':
+                moverPieza(0, 1); // Mover hacia abajo
+                break;
+        }
     }
+    
 });
 // modo tactil
 document.addEventListener("DOMContentLoaded", function() {
-    
-    const leftButton = document.getElementById("leftButton");
-    const downButton = document.getElementById("downButton");
-    const rightButton = document.getElementById("rightButton");
-    const rotateButton = document.getElementById("rotateButton");
 
-    leftButton.addEventListener("click", function() {
-        console.log("Left button clicked");
-        moverPieza(-1,0);
-    });
-    downButton.addEventListener("click", function() {
-        console.log("Down button clicked");
-        moverPieza(0,1)
-    });
-    rightButton.addEventListener("click", function() {
-        console.log("Right button clicked");
-        moverPieza(1,0)
-    });
-    rotateButton.addEventListener("click", function() {
-        console.log("Rotate button clicked");
-       rotarPieza()
-    });
+    if(!pausa){
+        const leftButton = document.getElementById("leftButton");
+        const downButton = document.getElementById("downButton");
+        const rightButton = document.getElementById("rightButton");
+        const rotateButton = document.getElementById("rotateButton");
+
+        leftButton.addEventListener("click", function() {
+            console.log("Left button clicked");
+            moverPieza(-1,0);
+        });
+        downButton.addEventListener("click", function() {
+            console.log("Down button clicked");
+            moverPieza(0,1)
+        });
+        rightButton.addEventListener("click", function() {
+            console.log("Right button clicked");
+            moverPieza(1,0)
+        });
+        rotateButton.addEventListener("click", function() {
+            console.log("Rotate button clicked");
+        rotarPieza()
+        });
+    }
+    
+    
 });
 
 function comenzar(){
+    pausa = !pausa
 
     document.getElementById('iniciar').style.display = 'none';
     document.getElementById("pause").style.display = "inline";

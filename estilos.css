@@ -120,9 +120,12 @@ button img {
     height: 40px;
 }
 
-#pause {
+#pause, #play {
     background-color: transparent;
     margin-left: 15px; /* Separación del botón de pausa */
+}
+#play{
+    display: none;
 }
 
 /* Estilos para los botones circulares */
