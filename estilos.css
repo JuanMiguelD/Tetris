@@ -2,43 +2,133 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #121212;
-    color: #e0e0e0; 
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    overflow: auto; /* Permitir desplazamiento en pantallas pequeñas */
+    box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    height: 100vh; 
-    overflow: hidden; 
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el encabezado */
+h1 {
+    color: #00E676; /* Verde claro */
+    text-align: center;
+    margin: 10px 0;
+    font-size: 2rem;
+}
+
+/* Contenedor de los controles superiores */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la barra de volumen y el selector de color */
+.volume,
+.color {
+    width: 48%; /* Ajuste para que los elementos se sitúen lado a lado */
+    margin-bottom: 10px;
+}
+
+input[type="range"],
+input[type="color"] {
+    width: 100%; /* Ajusta el ancho del deslizador y del selector de color */
+    margin-top: 5px;
+}
+
+/* Estilos para el contenedor del canvas */
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Permitir posición absoluta del botón de inicio */
+    width: 100%;
+    max-width: 320px;
+    margin: 20px 0;
+    box-sizing: border-box;
 }
 
 /* Estilos para el canvas */
 canvas {
-    width: 100;
-    height: 900;
+    width: 100%;
+    height: auto;
     background-color: #4e4e4e;
     border: 2px solid #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
+    aspect-ratio: 1 / 2; /* Mantener la relación de aspecto */
 }
 
-
-h1 {
-    color: #00E676; /* Verde claro */
-    text-align: center;
-    margin: 20px 0;
-    font-size: 2rem;
+/* Estilo para el botón de iniciar en el centro del canvas */
+.contenedor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
+#iniciar {
+    background-color: #00E676;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+/* Contenedor de los botones */
 .button-container {
-    display:list-item;
-    gap: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    width: 100%;
+    flex-wrap: wrap; /* Permitir que los botones se envuelvan en pantallas pequeñas */
 }
 
+/* Estilos para los botones */
+button {
+    background-color: #00E676;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button img {
+    width: 40px;
+    height: 40px;
+}
+
+#pause {
+    background-color: transparent;
+    margin-left: 15px; /* Separación del botón de pausa */
+}
+
+/* Estilos para los botones circulares */
 .circular-button {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -52,7 +142,7 @@ h1 {
 .circular-button.left-arrow::before,
 .circular-button.right-arrow::before,
 .circular-button.down-arrow::before {
-    content: '';
+    content: "";
     display: inline-block;
     width: 0;
     height: 0;
@@ -61,7 +151,7 @@ h1 {
 }
 
 .circular-button.left-arrow {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4caf50; /* Verde */
 }
 
 .circular-button.left-arrow::before {
@@ -71,7 +161,7 @@ h1 {
 }
 
 .circular-button.right-arrow {
-    background-color: #a9a9a9; /* Gris */
+    background-color: #4caf50; /* Gris */
 }
 
 .circular-button.right-arrow::before {
@@ -81,51 +171,65 @@ h1 {
 }
 
 .circular-button.down-arrow {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4caf50; /* Verde */
 }
 
 .circular-button.down-arrow::before {
-    border-width: 0 10px 15px 10px;
-    border-color: transparent transparent #ffffff transparent;
+    border-width: 15px 10px 0 10px; /* Ajuste para que la flecha apunte hacia abajo */
+    border-color: #ffffff transparent transparent transparent;
     top: 18px;
+}
+
+/* Estilos para el botón de rotación */
+.circular-button.rotate-button {
+    background-color: #ffd700; /* Amarillo */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circular-button.rotate-button::before {
+    content: "\21bb"; /* Símbolo de flecha circular */
+    font-size: 24px;
+    color: #ffffff;
+    display: block;
+    line-height: 0;
+    position: static;
+    font-weight: bold; /* Asegurar que el símbolo tenga suficiente grosor */
 }
 
 .circular-button:hover {
     background-color: #333333; /* Cambiar a gris oscuro al pasar el ratón */
 }
 
+/* Media queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
 
-.contenedor{
-    position: absolute;
+    .volume,
+    .color {
+        width: 100%;
+    }
 
+    .canvas-container {
+        max-width: 280px; /* Ajustar el tamaño del canvas en pantallas pequeñas */
+    }
+
+    button img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .circular-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Reducir el tamaño del título en pantallas pequeñas */
+    }
 }
-
-button {
-    background-color:#00E676;
-}
-
-.volume {
-    position: absolute;
-    left: 60px;
-    top: 100px; /* Añade un margen superior para separar los elementos */
-}
-
-.color {
-    position: absolute;
-    left: 60px;
-    top:150px;
-}
-
-input[type="range"], input[type="color"] {
-    width: 100%; /* Ajusta el ancho del deslizador y del selector de color */
-}
-
-#pause, #play{
-    background-color: #4CAF50;
-    position: absolute;
-    left: 400px;
-    top: 100px;
-    display: none;
-}
-
-
