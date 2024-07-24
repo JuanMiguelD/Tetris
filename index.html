@@ -13,7 +13,19 @@
         <canvas id="myCanvas">
         </canvas>
     </div>
+
+    <div id="mensaje" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: #f00; color: #fff;">
+        Juego terminado
+    </div>
+
+    <div class="contenedor">
+        <button id="iniciar" onclick="comenzar()">Comenzar</button>
+    </div>
+
+
     <script src="prueba.js"></script>
+
+    <audio src="Song.mp3" id="musicaFondo" preload="auto"></audio>
     
 </body>
 </html>

@@ -31,14 +31,11 @@ function dibujarTablero() {
                 ctx.fillRect(columna * tamanoCelda, fila * tamanoCelda, tamanoCelda, tamanoCelda);
             }
 
-            
             ctx.strokeStyle = '#333'; 
             ctx.strokeRect(columna * tamanoCelda, fila * tamanoCelda, tamanoCelda, tamanoCelda);
         }
     }
 }
-
-
 const piezas = [
     // barra
     {
@@ -116,11 +113,11 @@ function obtenerPiezaAleatoria() {
     };
 }
 
-
 let piezaActual = obtenerPiezaAleatoria();
 
 
 function dibujarPieza() {
+
     ctx.fillStyle = piezaActual.color;
     for (let fila = 0; fila < piezaActual.forma.length; fila++) {
         for (let columna = 0; columna < piezaActual.forma[fila].length; columna++) {
@@ -135,7 +132,6 @@ function dibujarPieza() {
         }
     }
 }
-
 
 function verificarColision(x, y, forma) {
     for (let fila = 0; fila < forma.length; fila++) {
@@ -164,7 +160,6 @@ function fijarPieza() {
     }
 }
 
-
 function moverPieza(dx, dy) {
     
     const nuevoX = piezaActual.x + dx;
@@ -188,12 +183,13 @@ function moverPieza(dx, dy) {
         eliminarFilasCompletas();
         piezaActual = obtenerPiezaAleatoria();
         if (verificarColision(piezaActual.x, piezaActual.y, piezaActual.forma)) {
-            alert('Juego terminado');
-            document.location.reload();
+            document.getElementById('mensaje').style.display = 'block';
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
         }
     }
 }
-
 
 function rotarPieza() {
     const rotacionIndex = (piezaActual.rotacionIndex + 1) % piezaActual.rotaciones.length;
@@ -242,11 +238,23 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Inicializar el tablero y dibujar la pieza
-dibujarTablero();
-dibujarPieza();
+function comenzar(){
 
-// Animación automática de la pieza
-setInterval(() => {
-    moverPieza(0, 1); // Mover hacia abajo automáticamente
-}, 500);
+    document.getElementById('iniciar').style.display = 'none';
+    const musicaFondo = document.getElementById('musicaFondo');
+    
+    musicaFondo.loop = true; // Repetir música en bucle
+    musicaFondo.volume = 0.5; // Ajusta el volumen (0.0 a 1.0)
+    musicaFondo.play(); // Reproduce la música
+    
+
+    // Inicializar el tablero y dibujar la pieza
+    dibujarTablero();
+    dibujarPieza();
+
+    // Animación automática de la pieza
+    setInterval(() => {
+        moverPieza(0, 1); // Mover hacia abajo automáticamente
+    }, 500);
+
+}
