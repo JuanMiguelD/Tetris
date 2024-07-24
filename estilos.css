@@ -127,3 +127,21 @@ input[type="range"], input[type="color"] {
     top: 100px;
     display: none;
 }
+
+.controles{
+    position: absolute;
+    right: 250px;
+}
+
+#down{
+    transform: rotate(180deg);
+}
+
+#right{
+    transform: rotate(90deg);
+
+}
+#left{
+    transform: rotate(-90deg);
+}
+
