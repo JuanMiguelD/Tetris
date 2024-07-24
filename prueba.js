@@ -299,7 +299,7 @@ function play(){
 }
 
 function cambiarColorBloques(color) {
-    colorBloques = color;
+    piezaActual.color = color;
     dibujarTablero();
     dibujarPieza();
 }
