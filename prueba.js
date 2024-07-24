@@ -4,7 +4,7 @@ const columnasTablero = 14;
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
 let intervalo
-let pausa = true;
+let pausa = false;
 
 console.log(tablero);
 
@@ -230,29 +230,23 @@ function eliminarFilasCompletas() {
 
 // Eventos de teclado
 document.addEventListener('keydown', (event) => {
-    if(!pausa){
-        switch (event.key) {
-            case 'ArrowLeft':
-                moverPieza(-1, 0); // Mover a la izquierda
-                break;
-            case 'ArrowRight':
-                moverPieza(1, 0); // Mover a la derecha
-                break;
-            case 'ArrowUp':
-                rotarPieza(); // Rotar la pieza
-                break;
-            case 'ArrowDown':
-                moverPieza(0, 1); // Mover hacia abajo
-                break;
-        }
-
+    switch (event.key) {
+        case 'ArrowLeft':
+            moverPieza(-1, 0); // Mover a la izquierda
+            break;
+        case 'ArrowRight':
+            moverPieza(1, 0); // Mover a la derecha
+            break;
+        case 'ArrowUp':
+            rotarPieza(); // Rotar la pieza
+            break;
+        case 'ArrowDown':
+            moverPieza(0, 1); // Mover hacia abajo
+            break;
     }
-
 });
 
 function comenzar(){
-
-    pausa = !pausa
 
     document.getElementById('iniciar').style.display = 'none';
     document.getElementById("pause").style.display = "inline";
