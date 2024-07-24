@@ -100,16 +100,30 @@ h1 {
 
 }
 
-#iniciar {
+button {
     background-color:#00E676;
-    padding: 10px;
-    
+}
+
+.volume {
+    position: absolute;
+    left: 60px;
+    top: 100px; /* Añade un margen superior para separar los elementos */
+}
+
+.color {
+    position: absolute;
+    left: 60px;
+    top:150px;
+}
+
+input[type="range"], input[type="color"] {
+    width: 100%; /* Ajusta el ancho del deslizador y del selector de color */
 }
 
 #pause, #play{
-    background-color: #121212;
+    background-color: #4CAF50;
     position: absolute;
-    left: 450px;
+    left: 400px;
     top: 100px;
     display: none;
 }

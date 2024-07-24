@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-
     <div>
         <button id="pause" onclick="play()">
             <img src="pause.png" width="50px" height="50px">
@@ -18,11 +17,9 @@
         </button>
     </div>
 
-
     <div>
         <h1>Tetris</h1>
-        <canvas id="myCanvas">
-        </canvas>
+        <canvas id="myCanvas"></canvas>
     </div>
 
     <div id="mensaje" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: #f00; color: #fff;">
@@ -33,9 +30,20 @@
         <button id="iniciar" onclick="comenzar()">Comenzar</button>
     </div>
 
+    <div class="volume">
+        <label for="volumen">Volumen: </label>
+        <input type="range" id="volumen" name="volumen" min="0" max="1" step="0.01" value="0.5" oninput="ajustarVolumen(this.value)">
+    </div>
+
+    <div class="color">
+        <label for="colorSelector">Color de Bloques: </label>
+        <input type="color" id="colorSelector" name="colorSelector" value="#00E676" onchange="cambiarColorBloques(this.value)">
+    </div>
+
+
     <audio src="Song.mp3" id="musicaFondo" preload="auto"></audio>
     <audio src="gameOver.mp3" id="fin" preload="auto"></audio>
-
     <script src="prueba.js"></script>
+
 </body>
 </html>

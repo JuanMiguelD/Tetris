@@ -292,3 +292,14 @@ function play(){
     }
     
 }
+
+function cambiarColorBloques(color) {
+    colorBloques = color;
+    dibujarTablero();
+    dibujarPieza();
+}
+
+function ajustarVolumen(volumen) {
+    const musicaFondo = document.getElementById('musicaFondo');
+    musicaFondo.volume = volumen;
+}
