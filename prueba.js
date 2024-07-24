@@ -228,22 +228,25 @@ function eliminarFilasCompletas() {
     }
 }
 
+let moverpiezahabilitado = true;
+
 // Eventos de teclado
 document.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'ArrowLeft':
-            moverPieza(-1, 0); // Mover a la izquierda
-            break;
-        case 'ArrowRight':
-            moverPieza(1, 0); // Mover a la derecha
-            break;
-        case 'ArrowUp':
-            rotarPieza(); // Rotar la pieza
-            break;
-        case 'ArrowDown':
-            moverPieza(0, 1); // Mover hacia abajo
-            break;
-    }
+    if(!moverpiezahabilitado) return;
+        switch (event.key) {
+            case 'ArrowLeft':
+                moverPieza(-1, 0); // Mover a la izquierda
+                break;
+            case 'ArrowRight':
+                moverPieza(1, 0); // Mover a la derecha
+                break;
+            case 'ArrowUp':
+                rotarPieza(); // Rotar la pieza
+                break;
+            case 'ArrowDown':
+                moverPieza(0, 1); // Mover hacia abajo
+                break;
+        }
 });
 
 function comenzar(){
@@ -276,7 +279,7 @@ function play(){
             }, 500); 
         document.getElementById("pause").style.display = "inline";
         document.getElementById("play").style.display = "none";
-        
+        moverpiezahabilitado = true;
         pausa = !pausa
 
     }
@@ -286,7 +289,7 @@ function play(){
         clearInterval(intervalo); // Detiene la animación
         document.getElementById("pause").style.display = "none";
         document.getElementById("play").style.display = "inline";
-
+        moverpiezahabilitado = false;
         pausa = !pausa
 
     }
