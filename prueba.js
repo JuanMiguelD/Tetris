@@ -4,7 +4,7 @@ const columnasTablero = 14;
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
 let intervalo
-let pausa = true;
+let pausa = false;
 
 console.log(tablero);
 
@@ -217,41 +217,61 @@ function rotarPieza() {
     }
 }
 
-// Eliminar filas completas
+
 function eliminarFilasCompletas() {
     for (let fila = filas - 1; fila >= 0; fila--) {
         if (tablero[fila].every(cell => cell === 1)) {
             tablero.splice(fila, 1);
             tablero.unshift(Array(columnas).fill(0));
-            fila++; // Revisa la nueva fila en la posición actual
+            fila++; 
         }
     }
 }
 
 // Eventos de teclado
 document.addEventListener('keydown', (event) => {
-    if(!pausa){
-        switch (event.key) {
-            case 'ArrowLeft':
-                moverPieza(-1, 0); // Mover a la izquierda
-                break;
-            case 'ArrowRight':
-                moverPieza(1, 0); // Mover a la derecha
-                break;
-            case 'ArrowUp':
-                rotarPieza(); // Rotar la pieza
-                break;
-            case 'ArrowDown':
-                moverPieza(0, 1); // Mover hacia abajo
-                break;
-        }
+    switch (event.key) {
+        case 'ArrowLeft':
+            moverPieza(-1, 0); // Mover a la izquierda
+            break;
+        case 'ArrowRight':
+            moverPieza(1, 0); // Mover a la derecha
+            break;
+        case 'ArrowUp':
+            rotarPieza(); // Rotar la pieza
+            break;
+        case 'ArrowDown':
+            moverPieza(0, 1); // Mover hacia abajo
+            break;
     }
-  
+});
+// modo tactil
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const leftButton = document.getElementById("leftButton");
+    const downButton = document.getElementById("downButton");
+    const rightButton = document.getElementById("rightButton");
+    const rotateButton = document.getElementById("rotateButton");
+
+    leftButton.addEventListener("click", function() {
+        console.log("Left button clicked");
+        moverPieza(-1,0);
+    });
+    downButton.addEventListener("click", function() {
+        console.log("Down button clicked");
+        moverPieza(0,1)
+    });
+    rightButton.addEventListener("click", function() {
+        console.log("Right button clicked");
+        moverPieza(1,0)
+    });
+    rotateButton.addEventListener("click", function() {
+        console.log("Rotate button clicked");
+       rotarPieza()
+    });
 });
 
 function comenzar(){
-
-    pausa = !pausa
 
     document.getElementById('iniciar').style.display = 'none';
     document.getElementById("pause").style.display = "inline";
@@ -261,7 +281,7 @@ function comenzar(){
     musicaFondo.play(); // Reproduce la música
     
 
-    // Inicializar el tablero y dibujar la pieza
+   
     dibujarTablero();
     dibujarPieza();
 
@@ -299,7 +319,7 @@ function play(){
 }
 
 function cambiarColorBloques(color) {
-    piezaActual.color = color;
+    colorBloques = color;
     dibujarTablero();
     dibujarPieza();
 }
