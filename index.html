@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris</title>
     <link rel="stylesheet" href="estilos.css">
+
+    <!-- Evita que el scroll con las teclas que se juega-->
+    <script>
+        document.addEventListener('keydown', function(event) {
+            const keysToPrevent = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'];
+
+            if (keysToPrevent.includes(event.key)) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="container">
