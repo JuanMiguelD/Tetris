@@ -206,6 +206,22 @@ button img {
     background-color: #333333; /* Cambiar a gris oscuro al pasar el ratón */
 }
 
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+.score-board p {
+    margin: 0;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 8px;
+}
+
+
 /* Media queries para pantallas pequeñas */
 @media (max-width: 600px) {
     .controls {

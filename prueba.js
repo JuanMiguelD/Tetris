@@ -3,8 +3,14 @@ const columnasTablero = 14;
 
 const tablero = Array.from({ length: filasTablero }, () => Array(columnasTablero).fill(0));
 
+let colort = "#f54021"
 let intervalo
 let pausa = true;
+let score = 0;
+let lines = 0;
+let highscore = localStorage.getItem('highscore') || 0;
+highscore = parseInt(highscore, 10);
+document.getElementById('highscore').textContent = highscore;
 
 console.log(tablero);
 
@@ -23,12 +29,12 @@ canvas.width = columnas * tamanoCelda;
 canvas.height = filas * tamanoCelda;
 
 
-function dibujarTablero() {
+function dibujarTablero(color) {
     for (let fila = 0; fila < filas; fila++) {
         for (let columna = 0; columna < columnas; columna++) {
             if (tablero[fila][columna] === 1) {
                 
-                ctx.fillStyle = '#f54021'; 
+                ctx.fillStyle = color; 
                 ctx.fillRect(columna * tamanoCelda, fila * tamanoCelda, tamanoCelda, tamanoCelda);
             } else {
                 
@@ -180,7 +186,7 @@ function moverPieza(dx, dy) {
         );
         piezaActual.x = nuevoX;
         piezaActual.y = nuevoY;
-        dibujarTablero();
+        dibujarTablero(colort);
         dibujarPieza();
     } else if (dy > 0) {
        
@@ -212,19 +218,28 @@ function rotarPieza() {
         );
         piezaActual.forma = nuevaForma;
         piezaActual.rotacionIndex = rotacionIndex;
-        dibujarTablero();
+        dibujarTablero(colort);
         dibujarPieza();
     }
 }
 
 
 function eliminarFilasCompletas() {
+    let lineasEliminadas = 0;
     for (let fila = filas - 1; fila >= 0; fila--) {
         if (tablero[fila].every(cell => cell === 1)) {
             tablero.splice(fila, 1);
             tablero.unshift(Array(columnas).fill(0));
-            fila++; 
+            fila++;
+            lineasEliminadas++;
         }
+    }
+    if (lineasEliminadas > 0) {
+        score += lineasEliminadas * 100;
+        lines += lineasEliminadas;
+        document.getElementById('score').textContent = score;
+        document.getElementById('lines').textContent = lines;
+        actualizarHighScore();
     }
 }
 
@@ -250,31 +265,37 @@ document.addEventListener('keydown', (event) => {
 });
 // modo tactil
 document.addEventListener("DOMContentLoaded", function() {
+    const leftButton = document.getElementById("leftButton");
+    const downButton = document.getElementById("downButton");
+    const rightButton = document.getElementById("rightButton");
+    const rotateButton = document.getElementById("rotateButton");
 
-    if(!pausa){
-        const leftButton = document.getElementById("leftButton");
-        const downButton = document.getElementById("downButton");
-        const rightButton = document.getElementById("rightButton");
-        const rotateButton = document.getElementById("rotateButton");
-
-        leftButton.addEventListener("click", function() {
-            console.log("Left button clicked");
+    leftButton.addEventListener("click", function() {
+        console.log("Left button clicked");
+        if(!pausa){
             moverPieza(-1,0);
-        });
-        downButton.addEventListener("click", function() {
-            console.log("Down button clicked");
-            moverPieza(0,1)
-        });
-        rightButton.addEventListener("click", function() {
-            console.log("Right button clicked");
-            moverPieza(1,0)
-        });
-        rotateButton.addEventListener("click", function() {
-            console.log("Rotate button clicked");
-        rotarPieza()
-        });
-    }
-    
+        }
+        
+    });
+    downButton.addEventListener("click", function() {
+        console.log("Down button clicked");
+        if(!pausa){
+            moverPieza(0,1);
+        }
+    });
+    rightButton.addEventListener("click", function() {
+        console.log("Right button clicked");
+        if(!pausa){
+            moverPieza(1,0);
+        }
+    });
+    rotateButton.addEventListener("click", function() {
+        console.log("Rotate button clicked");
+        if(!pausa){
+            rotarPieza();
+        }
+    });
+
     
 });
 
@@ -288,9 +309,17 @@ function comenzar(){
     musicaFondo.volume = 0.5; // Ajusta el volumen (0.0 a 1.0)
     musicaFondo.play(); // Reproduce la música
     
+    score = 0;
+    lines = 0;
+    
+
+    document.getElementById('score').textContent = score;
+    document.getElementById('lines').textContent = lines;
 
    
-    dibujarTablero();
+
+   
+    dibujarTablero(colort);
     dibujarPieza();
 
     // Animación automática de la pieza
@@ -327,12 +356,20 @@ function play(){
 }
 
 function cambiarColorBloques(color) {
-    colorBloques = color;
-    dibujarTablero();
+    colort = color
+    dibujarTablero(color);
     dibujarPieza();
 }
 
 function ajustarVolumen(volumen) {
     const musicaFondo = document.getElementById('musicaFondo');
     musicaFondo.volume = volumen;
+}
+
+function actualizarHighScore() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem('highscore', highscore);
+        document.getElementById('highscore').textContent = highscore;
+    }
 }
